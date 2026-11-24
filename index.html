@@ -240,19 +240,37 @@ visionButton.textContent = "Reveal My Vision";
 const ideaInput = document.querySelector("#idea-input");
 const typingStatus = document.querySelector("#typing-status");
 
+const typingColors = [
+"#a855f7",
+"#3b82f6",
+"#ef4444",
+"#ec4899",
+"#22c55e",
+"#f97316",
+"#eab308"
+];
+
 ideaInput.addEventListener("input", function() {
 
 if (ideaInput.value.length > 0) {
-ideaInput.classList.add("typing");
-typingStatus.textContent = "Your gaming idea is taking shape!";
+const randomColor = typingColors[
+Math.floor(Math.random() * typingColors.length)
+];
+
+ideaInput.style.borderColor = randomColor;
+ideaInput.style.boxShadow = `0 0 20px ${randomColor}`;
+ideaInput.style.backgroundColor = randomColor + "22";
+
+typingStatus.textContent = "Your gaming idea is FIRE!";
 } else {
-ideaInput.classList.remove("typing");
+ideaInput.style.borderColor = "#555";
+ideaInput.style.boxShadow = "none";
+ideaInput.style.backgroundColor = "#222";
+
 typingStatus.textContent = "Start typing to activate the effect.";
 }
 
 });
-
-
 // REQUIREMENT 3: Dynamically create and remove list items
 
 const goalForm = document.querySelector("#goal-form");
