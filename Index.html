@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RIOT HOUSE | Interactive Gaming Goals</title>
+
+<style>
+* {
+box-sizing: border-box;
+}
+
+body {
+margin: 0;
+padding: 0;
+background-color: #080808;
+color: white;
+font-family: Arial, sans-serif;
+}
+
+header {
+background-color: #111;
+text-align: center;
+padding: 35px 20px;
+border-bottom: 2px solid #168cff;
+}
+
+header h1 {
+color: #168cff;
+font-size: 40px;
+letter-spacing: 5px;
+}
+
+header p {
+letter-spacing: 3px;
+color: #ccc;
+}
+
+main {
+max-width: 800px;
+margin: 40px auto;
+padding: 25px;
+}
+
+section {
+background-color: #151515;
+padding: 25px;
+margin-bottom: 25px;
+border-radius: 10px;
+border: 1px solid #333;
+}
+
+h2 {
+color: #168cff;
+}
+
+button {
+background-color: #168cff;
+color: white;
+border: none;
+padding: 12px 20px;
+border-radius: 5px;
+cursor: pointer;
+margin-top: 10px;
+font-weight: bold;
+}
+
+button:hover {
+background-color: #0066cc;
+}
+
+input {
+display: block;
+width: 100%;
+padding: 13px;
+margin-top: 12px;
+background-color: #222;
+border: 2px solid #555;
+border-radius: 5px;
+color: white;
+font-size: 16px;
+}
+
+input:focus {
+outline: none;
+}
+
+.typing {
+border-color: #168cff;
+background-color: #10243a;
+box-shadow: 0 0 10px #168cff;
+}
+
+#goal-list li {
+padding: 12px;
+margin: 10px 0;
+background-color: #222;
+border-left: 3px solid #168cff;
+display: flex;
+justify-content: space-between;
+align-items: center;
+gap: 10px;
+}
+
+.remove-button {
+background-color: #b22222;
+margin: 0;
+}
+
+footer {
+text-align: center;
+padding: 25px;
+color: #888;
+}
+
+[hidden] {
+display: none !important;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>RIOT HOUSE</h1>
+<p>BUILD THE FUTURE OF GAMING</p>
+</header>
+
+<main>
+
+<section>
+<h2>My Gaming Vision</h2>
+
+<p>
+RIOT HOUSE is my vision for the future of gaming.
+I want to create technology that transforms how
+people experience virtual worlds.
+</p>
+
+<button type="button" id="vision-button">
+Reveal My Vision
+</button>
+
+<p id="vision-text" hidden>
+My goal is to develop RH ONE, a next-generation
+gaming system that allows players to experience
+immersive virtual environments. I want players
+to feel like they are actually inside the game,
+interact with their surroundings, and experience
+gaming beyond traditional screens.
+</p>
+</section>
+
+
+<section>
+<h2>Live Typing Interaction</h2>
+
+<p>
+Type your next gaming idea below and watch
+the input field change its appearance.
+</p>
+
+<label for="idea-input">Enter Your Gaming Idea:</label>
+
+<input
+type="text"
+id="idea-input"
+placeholder="Type your idea here..."
+>
+
+<p id="typing-status" aria-live="polite">
+Start typing to activate the effect.
+</p>
+</section>
+
+
+<section>
+<h2>My Gaming Development Goals</h2>
+
+<p>
+Add goals you want to accomplish while
+developing the future of RIOT HOUSE.
+</p>
+
+<form id="goal-form">
+<label for="goal-input">Enter a New Goal:</label>
+
+<input
+type="text"
+id="goal-input"
+placeholder="Example: Design RH ONE"
+required
+>
+
+<button type="submit">Add Goal</button>
+</form>
+
+<h3>My Goals</h3>
+
+<ul id="goal-list">
+<li>Develop the RH ONE console</li>
+<li>Design immersive gaming environments</li>
+<li>Explore virtual reality technology</li>
+</ul>
+
+<p id="goal-status" aria-live="polite"></p>
+</section>
+
+</main>
+
+<footer>
+<p>&copy; 2026 RIOT HOUSE | Creating the Future of Gaming</p>
+</footer>
+
+
+<script>
+
+// REQUIREMENT 1: Button changes page content
+
+const visionButton = document.querySelector("#vision-button");
+const visionText = document.querySelector("#vision-text");
+
+visionButton.addEventListener("click", function() {
+
+if (visionText.hidden) {
+visionText.hidden = false;
+visionButton.textContent = "Hide My Vision";
+} else {
+visionText.hidden = true;
+visionButton.textContent = "Reveal My Vision";
+}
+
+});
+
+
+// REQUIREMENT 2: CSS changes while typing
+
+const ideaInput = document.querySelector("#idea-input");
+const typingStatus = document.querySelector("#typing-status");
+
+ideaInput.addEventListener("input", function() {
+
+if (ideaInput.value.length > 0) {
+ideaInput.classList.add("typing");
+typingStatus.textContent = "Your gaming idea is taking shape!";
+} else {
+ideaInput.classList.remove("typing");
+typingStatus.textContent = "Start typing to activate the effect.";
+}
+
+});
+
+
+// REQUIREMENT 3: Dynamically create and remove list items
+
+const goalForm = document.querySelector("#goal-form");
+const goalInput = document.querySelector("#goal-input");
+const goalList = document.querySelector("#goal-list");
+const goalStatus = document.querySelector("#goal-status");
+
+goalForm.addEventListener("submit", function(event) {
+
+event.preventDefault();
+
+const goalText = goalInput.value.trim();
+
+if (goalText === "") {
+goalStatus.textContent = "Please enter a goal first.";
+return;
+}
+
+const newGoal = document.createElement("li");
+
+const goalName = document.createElement("span");
+goalName.textContent = goalText;
+
+const removeButton = document.createElement("button");
+removeButton.textContent = "Remove";
+removeButton.type = "button";
+removeButton.classList.add("remove-button");
+
+removeButton.addEventListener("click", function() {
+newGoal.remove();
+goalStatus.textContent = "Goal removed.";
+});
+
+newGoal.appendChild(goalName);
+newGoal.appendChild(removeButton);
+
+goalList.appendChild(newGoal);
+
+goalInput.value = "";
+goalStatus.textContent = "Your new goal was added!";
+
+});
+
+
+</script>
+
+</body>
+</html>
